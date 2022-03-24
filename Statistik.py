@@ -18,6 +18,11 @@ def dataStatistics(data, statistic):
     elif statistic == "Rows"
         result = np.size(dataT[0,:])
     elif statistic == "Std Temperature"
-        result =
-    
+        result = np.std(dataT[0,:])
+    elif statistic == "Std Growth rate"
+        result = np.std(dataT[1,:])
+    elif statistic == "Mean Cold Growth rate"
+        result ==
+        
+        
     return result
