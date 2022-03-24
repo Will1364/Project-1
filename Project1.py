@@ -14,17 +14,24 @@ def dataLoad(filename):
     file = open(filename).read()
         #String split
     s=file.split()
+    s = np.asfarray(s,float)
         #len af filen, dividere med tre, for antallet af rækker
     l = int(len(s)/3)
         #Foerste række
     k=np.array([s[0],s[1],s[2]])
     
+   # s=s.astype(np.float)
+
+
         #Loop for at stacke matricen
     for i in range (1,l):
-        
-        v = np.array([s[i*3],s[i*3+1],s[i*3+2]])
-        
-        k = np.vstack ((k,v))
+        #BacName datafejls håndtering
+        if s[i*3+2] >= 1 and s[i*3+2] <= 4:
+          if s[i*3] >= 10 and s[i*3] <= 60:
+              if s[i*3+1] > 0:
+                  v = np.array([s[i*3],s[i*3+1],s[i*3+2]])
+                  k = np.vstack ((k,v))
+
     
     data = k
 
