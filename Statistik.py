@@ -9,21 +9,24 @@ with with numpy as np
 
 def dataStatistics(data, statistic):
     
-    dataT =data.t   #matricen bliver transponeret til en 3xN matrice så temperaturen vil være i øverste række, growth rate vil være i midten og bacterietypen vil være i nederste række.
+    dataT =data.t
     
-    #hvad dette stykke kode skal udregne bliver bestemt via en række if-sætninger
     if statistic == "Mean Temperature"
-        result = np.mean(dataT[0,:])    #mean temperature bliver beregnet ved at finde gennemsnittet af elementerne i øverste række
+        result = np.mean(dataT[0,:])
     elif statistic == "Mean Growth rate"
-        result = np.mean(dataT[1,:])    #mean growth rate bliver beregnet ved at finde gennemsnittet af elementerne i midterste række
+        result = np.mean(dataT[1,:])
     elif statistic == "Rows"
-        result = np.size(dataT[0,:])    #antallet af rows i data bliver beregnet som længden af den øverste række
+        result = np.size(dataT[0,:])
     elif statistic == "Std Temperature"
-        result = np.std(dataT[0,:])     #std temperature er std deviation af temperaturmålingerne og det bliver udregnet via np.std af den øverste række af dataT
+        result = np.std(dataT[0,:])
     elif statistic == "Std Growth rate"
-        result = np.std(dataT[1,:])     #std growth rate er std deviation af temperaturmålingerne og det bliver udregnet via np.std af den øverste række af dataT
+        result = np.std(dataT[1,:])
     elif statistic == "Mean Cold Growth rate"
-        result =
-        
+        v = dataT[1,:][dataT[0,:] < 20]                
+        result = np.mean(v)
+    elif statistic == "Mean Hot Growth rate"
+        v = dataT[1,:][dataT[0,:] > 20]                
+        result = np.mean(v)
+
         
     return result
