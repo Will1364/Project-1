@@ -16,7 +16,17 @@ while True:
     except ValueError:
         print("Not a valid filename. Please try again.")
 
+while True:
+    try:
+        statistic = str(input("What type of statistic do you wich to see?:"))
+        break
+    except ValueError:
+        print("Not a valid input. Please try again.")
 
+
+
+        
+        
 def dataLoad(filename):
         # Loade filen
     file = open(filename).read()
