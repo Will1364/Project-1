@@ -12,12 +12,13 @@ import pandas as pd
 
 while True:
     try:
-        fileName = str(input("Which datafile should be analysed?:"))
-        open(fileName)
+        fileName = str(input("Which datafile should be analysed?:"))        #User bliver bedt om et filnavn som input
+        open(fileName)                                                      #programmet prøver at åbne filen med angivet filnavn
         break
-    except IOError:
-        print("Not a valid filename. have you remembered to write. ")
-
+    except IOError:                                                         #I tilfælde af at det ikke er lykkedes at åbne en fil filename, bedes brugeren om at prøve igen
+        print("Not a valid filename.")
+        print("Have you remembered to end filename with .txt?")
+        print("Please try again.")
 
 
         
