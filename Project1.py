@@ -9,6 +9,14 @@ Created on Thu Mar 24 08:47:58 2022
 import numpy as np
 import pandas as pd
 
+while True:
+    try:
+        fileName = str(input("Which datafile should be analysed?:"))
+        break
+    except ValueError:
+        print("Not a valid filename. Please try again.")
+
+
 def dataLoad(filename):
         # Loade filen
     file = open(filename).read()
