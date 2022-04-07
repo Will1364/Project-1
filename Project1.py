@@ -3,7 +3,7 @@
 """
 Created on Thu Mar 24 08:47:58 2022
 
-@author: annaemilielundeborre
+@author: annaemilielundeborre & William Hedegaard Langvad s214512
 """
 
 import numpy as np
@@ -14,55 +14,77 @@ import pandas as pd
 #Denne del modtager user input
 #####################################################################################################################################################################
 
+print(""""Velkommen, dette program kan behandle dit data for dig. 
+      Du har nu følgende valgmuligheder:
+      - Indlæs data
+      - Filtrer data
+      - Vis statistik
+      - Generer diagrammer
+      - Afslut""")
+
+
+
 while True:
     try:
-        fileName = str(input("Which datafile should be analysed?:"))        #User bliver bedt om et filnavn som input
-        open(fileName)                                                      #programmet prøver at åbne filen med angivet filnavn
+        Command = str(input("Indtast vænligst dit valg:"))
+        if Command != "Indlæs data" and Command != "Filtrer data" and Command != "Vis statistik" and Command != "Afslut":
+            raise NameError
         break
-    except IOError:                                                         #I tilfælde af at det ikke er lykkedes at åbne en fil filename, bedes brugeren om at prøve igen
-        print("Not a valid filename.")
-        print("Have you remembered to end filename with .txt?")
-        print("Please try again.")
+    except  NameError:
+        print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
+    except ValueError:
+        print("Dette input er ikke gyldigt. Input skal være tekst")
 
-
-####################################################################################################################################################################
-#Denne del omdanner datafil til matrice
-####################################################################################################################################################################
         
+        
+####################################################################################################################################################################
+#Denne del indlæser datafil og omdanner  til matrice
+####################################################################################################################################################################
 def dataLoad(filename):
-        # Loade filen
+      # Loade filen
     file = open(filename).read()
-        #String split
+          #String split
     s=file.split()
     s = np.asfarray(s,float)
-        #len af filen, dividere med tre, for antallet af rækker
+          #len af filen, dividere med tre, for antallet af rækker
     l = int(len(s)/3)
         #Foerste række
     k=np.array([s[0],s[1],s[2]])
-    
-   # s=s.astype(np.float)
+   
+    # s=s.astype(np.float)
 
-
-        #Loop for at stacke matricen
+    #Loop for at stacke matricen
     for i in range (1,l):
         #BacName datafejls håndtering
         if s[i*3+2] >= 1 and s[i*3+2] <= 4:
-          if s[i*3] >= 10 and s[i*3] <= 60:
-              if s[i*3+1] > 0:
-                  v = np.array([s[i*3],s[i*3+1],s[i*3+2]])
-                  k = np.vstack ((k,v))
-
+            if s[i*3] >= 10 and s[i*3] <= 60:
+                if s[i*3+1] > 0:
+                    v = np.array([s[i*3],s[i*3+1],s[i*3+2]])
+                    k = np.vstack ((k,v))
     
-    data = k
-
-    
+        data = k
     return data
 
-print(dataLoad("test.txt"))
+if Command == "Indlæs data":        
+    while True:
+        try:
+            fileName = str(input("Which datafile should be analysed?:"))        #User bliver bedt om et filnavn som input
+            open(fileName)                                                      #programmet prøver at åbne filen med angivet filnavn
+            break
+        except IOError:                                                         #I tilfælde af at det ikke er lykkedes at åbne en fil filename, bedes brugeren om at prøve igen
+            print("Not a valid filename.")
+           print("Have you remembered to end filename with .txt?")
+           print("Please try again.")
+    Data = dataLoad(filename)
+
+
 
 ##################################################################################################################################################################
 #Denne del returnerer Statistik
 ##################################################################################################################################################################
+
+
+
 def dataStatistics(data, statistic):
     
     dataT =data.t #matricen bliver transponeret til en 3xN matrice så temperaturen vil være i øverste række, growth rate vil være i midten og bacterietypen vil være i nederste række.
@@ -88,4 +110,5 @@ def dataStatistics(data, statistic):
         
     return result
 
+if Command == "Vis statistik"
     
