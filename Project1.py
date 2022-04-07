@@ -10,6 +10,10 @@ import numpy as np
 import pandas as pd
 
 
+#####################################################################################################################################################################
+#Denne del modtager user input
+#####################################################################################################################################################################
+
 while True:
     try:
         fileName = str(input("Which datafile should be analysed?:"))        #User bliver bedt om et filnavn som input
@@ -21,7 +25,9 @@ while True:
         print("Please try again.")
 
 
-        
+####################################################################################################################################################################
+#Denne del omdanner datafil til matrice
+####################################################################################################################################################################
         
 def dataLoad(filename):
         # Loade filen
@@ -54,7 +60,9 @@ def dataLoad(filename):
 
 print(dataLoad("test.txt"))
 
-
+##################################################################################################################################################################
+#Denne del returnerer Statistik
+##################################################################################################################################################################
 def dataStatistics(data, statistic):
     
     dataT =data.t #matricen bliver transponeret til en 3xN matrice så temperaturen vil være i øverste række, growth rate vil være i midten og bacterietypen vil være i nederste række.
