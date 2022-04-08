@@ -115,20 +115,20 @@ while status == 1 #programmet vil altid vende tilbage til hovedmenuen, ved mindr
 
         #hvad dette stykke kode skal udregne bliver bestemt via en række if-sætninger
         if statistic == "Mean Temperature":
-            result = np.mean(dataT[:,0])    #mean temperature bliver beregnet ved at finde gennemsnittet af elementerne i øverste række
+            result = np.mean(data[:,0])    #mean temperature bliver beregnet ved at finde gennemsnittet af elementerne i øverste række
         elif statistic == "Mean Growth rate":
-            result = np.mean(dataT[:,1])    #mean growth rate bliver beregnet ved at finde gennemsnittet af elementerne i midterste række
+            result = np.mean(data[:,1])    #mean growth rate bliver beregnet ved at finde gennemsnittet af elementerne i midterste række
         elif statistic == "Rows":
-            result = np.size(dataT[:,0])    #antallet af rows i data bliver beregnet som længden af den øverste række
+            result = np.size(data[:,0])    #antallet af rows i data bliver beregnet som længden af den øverste række
         elif statistic == "Std Temperature":
-            result = np.std(dataT[:,0])     #std temperature er std deviation af temperaturmålingerne og det bliver udregnet via np.std af den øverste række af dataT
+            result = np.std(data[:,0])     #std temperature er std deviation af temperaturmålingerne og det bliver udregnet via np.std af den øverste række af dataT
         elif statistic == "Std Growth rate":
-            result = np.std(dataT[:,1])     #std growth rate er std deviation af temperaturmålingerne og det bliver udregnet via np.std af den øverste række af dataT
+            result = np.std(data[:,1])     #std growth rate er std deviation af temperaturmålingerne og det bliver udregnet via np.std af den øverste række af dataT
         elif statistic == "Mean Cold Growth rate":
-            v = dataT[:,1][dataT[:,0] < 20] #der bliver skabt en vektor med alle de værdier for growth rate som har samme plads som       
+            v = data[:,1][data[:,0] < 20] #der bliver skabt en vektor med alle de værdier for growth rate som har samme plads som       
             result = np.mean(v)
         elif statistic == "Mean Hot Growth rate":
-            v = dataT[:,1][dataT[:,0] > 20]                
+            v = data[:,1][data[:,0] > 20]                
             result = np.mean(v)    
         return result
 
