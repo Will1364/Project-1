@@ -6,17 +6,23 @@ Created on Thu Mar 24 08:47:58 2022
 @author: annaemilielundeborre & William Hedegaard Langvad s214512
 """
 
+
+#####################################################################################################################################################################
+#Setup
+#####################################################################################################################################################################
+
 import numpy as np
 import pandas as pd
 
-dataRead = 0
-
+dataRead = 0  #denne variabel holder styr på om programmet har noget data at arbejde med
+class missingData(Exception): #Error type defineret for tilfælde hvor brugeren vil behandle data før han/hun har givet det til programmet
+    pass
 
 #####################################################################################################################################################################
 #Denne del viser menuen
 #####################################################################################################################################################################
 
-print(""""Velkommen til hovedmenuen, dette program kan behandle dit data for dig. 
+print(""""Velkommen til hovedmenuen, dette program kan behandle dit data for dig. #hovedmenu tekst
       Du har nu følgende valgmuligheder:
       - Indlæs data
       - Filtrer data
@@ -27,21 +33,25 @@ print(""""Velkommen til hovedmenuen, dette program kan behandle dit data for dig
 
 
 while True:
-      try:
-            Command = str(input("Indtast vænligst dit valg:"))
-            if Command != "Indlæs data" and Command != "Filtrer data" and Command != "Vis statistik" and Command != "Generer diagrammer" and Command != "Afslut":
-                  raise NameError
-            if command == "Filtrer data" or Command == "Vis statistik" or Command == "Generer diagrammer"
-                  if dataRead == 0
-                        raise Error
-            break
-      except Error
-            print("""Denne funktion er ikke mulig uden data.
-                  Indlæs venligst data""")
-      except NameError:
-            print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
-      except ValueError:
-            print("Dette input er ikke gyldigt. Input skal være tekst")
+    try:
+        Command = str(input("Indtast vænligst dit valg:")) #programmet spørger hvilken funktion brugeren ønsker at bruge
+            
+        if Command != "Indlæs data" and Command != "Filtrer data" and Command != "Vis statistik" and Command != "Generer diagrammer" and Command != "Afslut": 
+            raise NameError #hvis brugeren intaster en forkert string vil der blive kaldt en NameError
+            
+        if Command == "Filtrer data" or Command == "Vis statistik" or Command == "Generer diagrammer":
+            if DataRead == 0: #hvis brugeren prøver at behandle data før programmet har indlæst noget data, vil er blive kaldt missingData fejl
+                raise missingData
+        break
+    except missingData: #hvis der mangler data foreslår programmet at indlæse data
+        print("""Data mangler! Denne funktion er ikke mulig uden data.
+        Indlæs venligst data""")
+            
+    except  NameError:        #hvis der er intastet forkert string, vil programmet foreslå at tjekke for stavefejl
+        print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
+            
+    except ValueError:        #hvis der er intastet noget andet end en string, vil programmet minde brugeren om at input skal være en string
+        print("Dette input er ikke gyldigt. Input skal være tekst")
 
         
         
@@ -84,7 +94,8 @@ if Command == "Indlæs data":
                   print("Have you remembered to end filename with .txt?")
                   print("Please try again.")
       Data = dataLoad(filename)
-      dataRead = 0
+      
+      dataRead = 1 #programmet husker at den nu har loaded data
 
 
 
@@ -120,7 +131,7 @@ def dataStatistics(data, statistic):
     return result
 
 if Command == "Vis statistik"
-      print("""Du har nu følgende valgmuligheder:
+      print("""Du har nu følgende valgmuligheder:     #undermenu viser brugeren hvilke former for statistik programmet kan fremstille
       - Mean Temperature
       - Mean Growth rate
       - Rows
@@ -130,16 +141,18 @@ if Command == "Vis statistik"
       - Mean Hot Growth rate
       - Afslut""")
       try:
-            statistic = str(input("Indtast venligst dit valg:"))      
+            statistic = str(input("Indtast venligst dit valg:"))      #programmet beder brugeren vælge en statistik
             if Command != "Mean Temperature" and Command != "Mean Growth rate" and Command != "Rows" and Command != "Std Temperature" and Command != "Std Growth rate" and Command != "Mean Cold Growth rate" and Command != "Mean Hot Growth rate" and Command != "Afslut":
-                  raise NameError                                                               
+                  raise NameError    #hvis brugeren intaster en forkert string vil der blive kaldt en NameError                                                           
             break
+            
       except NameError:
             print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
+            
       except ValueError:
             print("Dette input er ikke gyldigt. Input skal være tekst")
       
       print(dataStatistics(data, statistic))
-      dataRead = 1
+      
       
             
