@@ -9,6 +9,8 @@ Created on Thu Mar 24 08:47:58 2022
 import numpy as np
 import pandas as pd
 
+dataRead = 0
+
 
 #####################################################################################################################################################################
 #Denne del modtager user input
@@ -30,7 +32,7 @@ while True:
         if Command != "Indlæs data" and Command != "Filtrer data" and Command != "Vis statistik" and Command != "Generer diagrammer" and Command != "Afslut":
             raise NameError
         break
-    except  NameError:
+    except NameError:
         print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
     except ValueError:
         print("Dette input er ikke gyldigt. Input skal være tekst")
@@ -66,16 +68,17 @@ def dataLoad(filename):
     return data
 
 if Command == "Indlæs data":        
-    while True:
-        try:
-            fileName = str(input("Which datafile should be analysed?:"))        #User bliver bedt om et filnavn som input
-            open(fileName)                                                      #programmet prøver at åbne filen med angivet filnavn
-            break
-        except IOError:                                                         #I tilfælde af at det ikke er lykkedes at åbne en fil filename, bedes brugeren om at prøve igen
-            print("Not a valid filename.")
-           print("Have you remembered to end filename with .txt?")
-           print("Please try again.")
-    Data = dataLoad(filename)
+      while True:
+            try:
+                  fileName = str(input("Which datafile should be analysed?:"))        #User bliver bedt om et filnavn som input
+                  open(fileName)                                                      #programmet prøver at åbne filen med angivet filnavn
+                  break
+            except IOError:                                                         #I tilfælde af at det ikke er lykkedes at åbne en fil filename, bedes brugeren om at prøve igen
+                  print("Not a valid filename.")
+                  print("Have you remembered to end filename with .txt?")
+                  print("Please try again.")
+      Data = dataLoad(filename)
+      dataRead = 0
 
 
 
@@ -111,7 +114,7 @@ def dataStatistics(data, statistic):
     return result
 
 if Command == "Vis statistik"
-    print("""Du har nu følgende valgmuligheder:
+      print("""Du har nu følgende valgmuligheder:
       - Mean Temperature
       - Mean Growth rate
       - Rows
@@ -120,14 +123,17 @@ if Command == "Vis statistik"
       - Mean Cold Growth rate
       - Mean Hot Growth rate
       - Afslut""")
-    try:
+      try:
             statistic = str(input("Indtast venligst dit valg:"))      
             if Command != "Mean Temperature" and Command != "Mean Growth rate" and Command != "Rows" and Command != "Std Temperature" and Command != "Std Growth rate" and Command != "Mean Cold Growth rate" and Command != "Mean Hot Growth rate" and Command != "Afslut":
                   raise NameError                                                               
             break
-            except NameError:
-                  print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
-            except ValueError:
-                  print("Dette input er ikke gyldigt. Input skal være tekst")
-                       
+      except NameError:
+            print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
+      except ValueError:
+            print("Dette input er ikke gyldigt. Input skal være tekst")
+      
+      print(dataStatistics(data, statistic))
+  
+      
             
