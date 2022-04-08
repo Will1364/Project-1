@@ -13,10 +13,10 @@ dataRead = 0
 
 
 #####################################################################################################################################################################
-#Denne del modtager user input
+#Denne del viser menuen
 #####################################################################################################################################################################
 
-print(""""Velkommen, dette program kan behandle dit data for dig. 
+print(""""Velkommen til hovedmenuen, dette program kan behandle dit data for dig. 
       Du har nu følgende valgmuligheder:
       - Indlæs data
       - Filtrer data
@@ -27,15 +27,21 @@ print(""""Velkommen, dette program kan behandle dit data for dig.
 
 
 while True:
-    try:
-        Command = str(input("Indtast vænligst dit valg:"))
-        if Command != "Indlæs data" and Command != "Filtrer data" and Command != "Vis statistik" and Command != "Generer diagrammer" and Command != "Afslut":
-            raise NameError
-        break
-    except NameError:
-        print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
-    except ValueError:
-        print("Dette input er ikke gyldigt. Input skal være tekst")
+      try:
+            Command = str(input("Indtast vænligst dit valg:"))
+            if Command != "Indlæs data" and Command != "Filtrer data" and Command != "Vis statistik" and Command != "Generer diagrammer" and Command != "Afslut":
+                  raise NameError
+            if command == "Filtrer data" or Command == "Vis statistik" or Command == "Generer diagrammer"
+                  if dataRead == 0
+                        raise Error
+            break
+      except Error
+            print("""Denne funktion er ikke mulig uden data.
+                  Indlæs venligst data""")
+      except NameError:
+            print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
+      except ValueError:
+            print("Dette input er ikke gyldigt. Input skal være tekst")
 
         
         
@@ -134,6 +140,6 @@ if Command == "Vis statistik"
             print("Dette input er ikke gyldigt. Input skal være tekst")
       
       print(dataStatistics(data, statistic))
-  
+      dataRead = 1
       
             
