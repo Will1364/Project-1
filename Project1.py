@@ -27,7 +27,7 @@ print(""""Velkommen, dette program kan behandle dit data for dig.
 while True:
     try:
         Command = str(input("Indtast vænligst dit valg:"))
-        if Command != "Indlæs data" and Command != "Filtrer data" and Command != "Vis statistik" and Command != "Afslut":
+        if Command != "Indlæs data" and Command != "Filtrer data" and Command != "Vis statistik" and Command != "Generer diagrammer" and Command != "Afslut":
             raise NameError
         break
     except  NameError:
@@ -111,4 +111,23 @@ def dataStatistics(data, statistic):
     return result
 
 if Command == "Vis statistik"
-    
+    print("""Du har nu følgende valgmuligheder:
+      - Mean Temperature
+      - Mean Growth rate
+      - Rows
+      - Std Temperature
+      - Std Growth rate
+      - Mean Cold Growth rate
+      - Mean Hot Growth rate
+      - Afslut""")
+    try:
+            statistic = str(input("Indtast venligst dit valg:"))      
+            if Command != "Mean Temperature" and Command != "Mean Growth rate" and Command != "Rows" and Command != "Std Temperature" and Command != "Std Growth rate" and Command != "Mean Cold Growth rate" and Command != "Mean Hot Growth rate" and Command != "Afslut":
+                  raise NameError                                                               
+            break
+            except NameError:
+                  print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
+            except ValueError:
+                  print("Dette input er ikke gyldigt. Input skal være tekst")
+                       
+            
