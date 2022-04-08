@@ -17,7 +17,7 @@ import pandas as pd
 dataRead = 0  #denne variabel holder styr på om programmet har noget data at arbejde med
 class missingData(Exception): #Error type defineret for tilfælde hvor brugeren vil behandle data før han/hun har givet det til programmet
     pass
-class wrongString(Exception): #Error type defineret for tilfælde hvor brugeren vil behandle data før han/hun har givet det til programmet
+class wrongString(Exception): #Error type defineret for tilfælde hvor brugeren skriver et input forkert
     pass
 status = 1
 
@@ -97,7 +97,7 @@ while status == 1 #programmet vil altid vende tilbage til hovedmenuen, ved mindr
                   print("Not a valid filename.")
                   print("Have you remembered to end filename with .txt?")
                   print("Please try again.")
-        Data = dataLoad(filename)
+        data = dataLoad(filename)
       
         dataRead = 1 #programmet husker at den nu har loaded data
 
