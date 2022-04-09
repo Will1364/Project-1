@@ -44,7 +44,7 @@ while status == 1 #programmet vil altid vende tilbage til hovedmenuen, ved mindr
                 raise wrongString #hvis brugeren intaster en forkert string vil der blive kaldt en NameError
             
             if Command == "Filtrer data" or Command == "Vis statistik" or Command == "Generer diagrammer":
-                if DataRead == 0: #hvis brugeren prøver at behandle data før programmet har indlæst noget data, vil er blive kaldt missingData fejl
+                if dataRead == 0: #hvis brugeren prøver at behandle data før programmet har indlæst noget data, vil er blive kaldt missingData fejl
                     raise missingData
             break
         except missingData: #hvis der mangler data foreslår programmet at indlæse data
@@ -90,8 +90,8 @@ while status == 1 #programmet vil altid vende tilbage til hovedmenuen, ved mindr
     if Command == "Indlæs data":        
         while True:
             try:
-                fileName = str(input("Which datafile should be analysed?:"))        #User bliver bedt om et filnavn som input
-                open(fileName)                                                      #programmet prøver at åbne filen med angivet filnavn
+                filename = str(input("Which datafile should be analysed?:"))        #User bliver bedt om et filnavn som input
+                open(filename)                                                      #programmet prøver at åbne filen med angivet filnavn
                 break
             except IOError:                                                         #I tilfælde af at det ikke er lykkedes at åbne en fil filename, bedes brugeren om at prøve igen
                   print("Not a valid filename.")
@@ -111,7 +111,7 @@ while status == 1 #programmet vil altid vende tilbage til hovedmenuen, ved mindr
 
     def dataStatistics(data, statistic):
     
-        dataT =data.t #matricen bliver transponeret til en 3xN matrice så temperaturen vil være i øverste række, growth rate vil være i midten og bacterietypen vil være i nederste række.
+        #dataT =data.t #matricen bliver transponeret til en 3xN matrice så temperaturen vil være i øverste række, growth rate vil være i midten og bacterietypen vil være i nederste række.
 
         #hvad dette stykke kode skal udregne bliver bestemt via en række if-sætninger
         if statistic == "Mean Temperature":
@@ -142,21 +142,23 @@ while status == 1 #programmet vil altid vende tilbage til hovedmenuen, ved mindr
         - Mean Cold Growth rate
         - Mean Hot Growth rate
         - Afslut""")
-        try:
-            statistic = str(input("Indtast venligst dit valg:"))      #programmet beder brugeren vælge en statistik
-            if Command != "Mean Temperature" and Command != "Mean Growth rate" and Command != "Rows" and Command != "Std Temperature" and Command != "Std Growth rate" and Command != "Mean Cold Growth rate" and Command != "Mean Hot Growth rate" and Command != "Afslut":
-                  raise wrongString    #hvis brugeren intaster en forkert string vil der blive kaldt en NameError                                                           
-            break
-        except wrongString:
-            print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
-        except ValueError:
-            print("Dette input er ikke gyldigt. Input skal være tekst")
-      
-      print(dataStatistics(data, statistic))
-      time.sleep(3)
+        while True:
+            
+            try:
+                statistic = str(input("Indtast venligst dit valg:"))      #programmet beder brugeren vælge en statistik
+                if statistic != "Mean Temperature" and statistic != "Mean Growth rate" and statistic != "Rows" and statistic != "Std Temperature" and statistic != "Std Growth rate" and statistic != "Mean Cold Growth rate" and statistic != "Mean Hot Growth rate" and statistic != "Tilbage":
+                    raise wrongString    #hvis brugeren intaster en forkert string vil der blive kaldt en NameError                                                           
+                break
+            except wrongString:
+                print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
+            except ValueError:
+                print("Dette input er ikke gyldigt. Input skal være tekst")
+        if statistic != "Tilbage":
+            print(dataStatistics(data, statistic))
+            time.sleep(3)
         print("""
-              
-              
+            
+            
               """)
       ####################################################################################################################################################################
       #Programmet afsluttes
