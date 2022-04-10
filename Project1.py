@@ -90,7 +90,7 @@ while status == 1 #programmet vil altid vende tilbage til hovedmenuen, ved mindr
     if Command == "Indlæs data":        
         while True:
             try:
-                filename = str(input("Which datafile should be analysed?:"))        #User bliver bedt om et filnavn som input
+                filename = str(input("Hvilken datafil skal indlæses?:"))        #User bliver bedt om et filnavn som input
                 open(filename)                                                      #programmet prøver at åbne filen med angivet filnavn
                 break
             except IOError:                                                         #I tilfælde af at det ikke er lykkedes at åbne en fil filename, bedes brugeren om at prøve igen
