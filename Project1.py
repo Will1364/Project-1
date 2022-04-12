@@ -88,9 +88,15 @@ while status == 1 #programmet vil altid vende tilbage til hovedmenuen, ved mindr
                         v = np.array([s[i*3],s[i*3+1],s[i*3+2]])
                         k = np.vstack ((k,v))
                     else:
-                        print("Data fejl i kolonne"
-    
+                        print("Datafejl i kolonne 2, række " + i)
+                else:
+                    print("Datafejl i kolonne 1, række " + i)
+            else:
+                print("Datafejl i kolonne 3, række " + i)
+        print("Rækker med data er frasorteret")
+        time.sleep(3)
         data = k
+        
         return data
 
     if Command == "Indlæs data":        
@@ -105,6 +111,8 @@ while status == 1 #programmet vil altid vende tilbage til hovedmenuen, ved mindr
                   print("Prøv igen.")
                   time.sleep(3)
         print("filen er lokaliseret")
+        print("datafilen indlæses")
+        time.sleep(3)
         data = dataLoad(filename)
         dataRead = 1 #programmet husker at den nu har loaded data
         time.sleep(3)
