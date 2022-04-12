@@ -56,9 +56,13 @@ while status == 1 #programmet vil altid vende tilbage til hovedmenuen, ved mindr
             
         except ValueError:        #hvis der er intastet noget andet end en string, vil programmet minde brugeren om at input skal være en string
             print("Dette input er ikke gyldigt. Input skal være tekst")
-
+ 
+    print("""
+            
+            
+          """)
         
-        
+    
     ####################################################################################################################################################################
     #Denne del indlæser datafil og omdanner  til matrice
     ####################################################################################################################################################################
@@ -83,6 +87,8 @@ while status == 1 #programmet vil altid vende tilbage til hovedmenuen, ved mindr
                     if s[i*3+1] > 0:
                         v = np.array([s[i*3],s[i*3+1],s[i*3+2]])
                         k = np.vstack ((k,v))
+                    else:
+                        print("Data fejl i kolonne"
     
         data = k
         return data
@@ -94,14 +100,20 @@ while status == 1 #programmet vil altid vende tilbage til hovedmenuen, ved mindr
                 open(filename)                                                      #programmet prøver at åbne filen med angivet filnavn
                 break
             except IOError:                                                         #I tilfælde af at det ikke er lykkedes at åbne en fil filename, bedes brugeren om at prøve igen
-                  print("Not a valid filename.")
-                  print("Have you remembered to end filename with .txt?")
-                  print("Please try again.")
+                  print("Der er ikke fundet en fil med dette filnavn")
+                  print("Har du husket at slutte filnavnet med .txt?")
+                  print("Prøv igen.")
+                  time.sleep(3)
+        print("filen er lokaliseret")
         data = dataLoad(filename)
-      
         dataRead = 1 #programmet husker at den nu har loaded data
-
-
+        time.sleep(3)
+        print("Filen er nu indlæst")
+        time.sleep(3)
+        print("""
+            
+            
+              """)
 
     ##################################################################################################################################################################
     #Denne del returnerer Statistik
