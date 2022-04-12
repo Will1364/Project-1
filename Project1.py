@@ -88,11 +88,11 @@ while status == 1 #programmet vil altid vende tilbage til hovedmenuen, ved mindr
                         v = np.array([s[i*3],s[i*3+1],s[i*3+2]])
                         k = np.vstack ((k,v))
                     else:
-                        print("Datafejl i kolonne 2, række " + i)
+                        print("Datafejl i kolonne 2, række " + str(i))
                 else:
-                    print("Datafejl i kolonne 1, række " + i)
+                    print("Datafejl i kolonne 1, række " + str(i))
             else:
-                print("Datafejl i kolonne 3, række " + i)
+                print("Datafejl i kolonne 3, række " + str(i))
         print("Rækker med data er frasorteret")
         time.sleep(3)
         data = k
