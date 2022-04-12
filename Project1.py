@@ -57,10 +57,7 @@ while status == 1: #programmet vil altid vende tilbage til hovedmenuen, ved mind
         except ValueError:        #hvis der er intastet noget andet end en string, vil programmet minde brugeren om at input skal være en string
             print("Dette input er ikke gyldigt. Input skal være tekst")
  
-    print("""
-            
-            
-          """)
+
         
     
     ####################################################################################################################################################################
@@ -88,13 +85,13 @@ while status == 1: #programmet vil altid vende tilbage til hovedmenuen, ved mind
                         v = np.array([s[i*3],s[i*3+1],s[i*3+2]])
                         k = np.vstack ((k,v))
                     else:
-                        print("Datafejl i kolonne 2, række " + str(i))
+                        print("Datafejl i kolonne 2, række " + str(i+1))
                 else:
-                    print("Datafejl i kolonne 1, række " + str(i))
+                    print("Datafejl i kolonne 1, række " + str(i+1))
             else:
-                print("Datafejl i kolonne 3, række " + str(i))
-        print("Rækker med data er frasorteret")
-        time.sleep(3)
+                print("Datafejl i kolonne 3, række " + str(i+1))
+        print("Rækker med datafejl er frasorteret")
+        time.sleep(2)
         data = k
         
         return data
@@ -110,12 +107,12 @@ while status == 1: #programmet vil altid vende tilbage til hovedmenuen, ved mind
                   print("Har du husket at slutte filnavnet med .txt?")
                   print("Prøv igen.")
                   time.sleep(3)
-        print("filen er lokaliseret")
-        print("datafilen indlæses")
-        time.sleep(3)
+        print("Filen er lokaliseret")
+        time.sleep(1)
+        print("Datafilen indlæses")
+        time.sleep(1)
         data = dataLoad(filename)
         dataRead = 1 #programmet husker at den nu har loaded data
-        time.sleep(3)
         print("Filen er nu indlæst")
         time.sleep(3)
         print("""
