@@ -1,15 +1,14 @@
  def dataFilter(filtertype, betingelse, data): 
-        print(45)
+        l = np.size(data[:,0])
+        V = np.zeros(3)
         if filtertype == "Bacteria":
-            l = np.size(data[:,0])
-            V = np.zeros(3)
             for i in range(l):
                 if data[i,2] == betingelse:
                     V = np.vstack ((V,data[i,:]))
             V = np.delete(V,0,0)
             data = V
               
-        if filtertype == "growthrate":
+        if filtertype == "Growthrate":
             for i in range(l):
                 if data[i,1] >= betingelse[0] and data[i,1] <= betingelse[1]:
                     V = np.vstack ((V,data[i,:]))
