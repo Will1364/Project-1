@@ -22,9 +22,80 @@ class wrongString(Exception): #Error type defineret for tilfælde hvor brugeren 
 status = 1
 
 
+
+
+        
+    
+####################################################################################################################################################################
+#Denne del indlæser datafil og omdanner  til matrice
+
+def dataLoad(filename):
+  # Loade filen
+    file = open(filename).read()
+      #String split
+    s=file.split()
+    s = np.asfarray(s,float)
+      #len af filen, dividere med tre, for antallet af rækker
+    l = int(len(s)/3)
+    #Foerste række
+    k=np.array([s[0],s[1],s[2]])
+    # s=s.astype(np.float)
+    #Loop for at stacke matricen
+    for i in range (1,l):
+    #BacName datafejls håndtering
+        if s[i*3+2] >= 1 and s[i*3+2] <= 4:
+            if s[i*3] >= 10 and s[i*3] <= 60:
+                if s[i*3+1] > 0:
+                    v = np.array([s[i*3],s[i*3+1],s[i*3+2]])
+                    k = np.vstack ((k,v))
+                else:
+                    print("Datafejl i kolonne 2, række " + str(i+1))
+            else:
+                print("Datafejl i kolonne 1, række " + str(i+1))
+        else:
+            print("Datafejl i kolonne 3, række " + str(i+1))
+    print("Rækker med datafejl er frasorteret")
+    time.sleep(2)
+    data = k
+    dataBackup = data   #en backup af den indlæste data gemmes i programmet, så man altid kan vende tilbage selv efter man har filtreret data
+    
+    return data
+
+##################################################################################################################################################################
+#Denne del returnerer Statistik
+
+def dataStatistics(data, statistic):
+        #hvad dette stykke kode skal udregne bliver bestemt via en række if-sætninger
+    if statistic == "Mean Temperature":
+        result = np.mean(data[:,0])    #mean temperature bliver beregnet ved at finde gennemsnittet af elementerne i øverste række
+    elif statistic == "Mean Growth rate":
+        result = np.mean(data[:,1])    #mean growth rate bliver beregnet ved at finde gennemsnittet af elementerne i midterste række
+    elif statistic == "Rows":
+        result = np.size(data[:,0])    #antallet af rows i data bliver beregnet som længden af den øverste række
+    elif statistic == "Std Temperature":
+        result = np.std(data[:,0])     #std temperature er std deviation af temperaturmålingerne og det bliver udregnet via np.std af den øverste række af dataT
+    elif statistic == "Std Growth rate":
+        result = np.std(data[:,1])     #std growth rate er std deviation af temperaturmålingerne og det bliver udregnet via np.std af den øverste række af dataT
+    elif statistic == "Mean Cold Growth rate":
+        v = data[:,1][data[:,0] < 20] #der bliver skabt en vektor med alle de værdier for growth rate som har samme plads som       
+        result = np.mean(v)
+    elif statistic == "Mean Hot Growth rate":
+        v = data[:,1][data[:,0] > 20]                
+        result = np.mean(v)    
+    return result
+  
+   
+
+
+
+
+####################################################################################################################################################################
+#Her er den aktive del af koden
+#################################################################################################################################################################
+
 #####################################################################################################################################################################
 #Denne del viser menuen
-#####################################################################################################################################################################
+
 while status == 1: #programmet vil altid vende tilbage til hovedmenuen, ved mindre status ændres til 0
     print(""""Velkommen til hovedmenuen, dette program kan behandle dit data for dig. #hovedmenu tekst
       Du har nu følgende valgmuligheder:
@@ -56,45 +127,9 @@ while status == 1: #programmet vil altid vende tilbage til hovedmenuen, ved mind
             
         except ValueError:        #hvis der er intastet noget andet end en string, vil programmet minde brugeren om at input skal være en string
             print("Dette input er ikke gyldigt. Input skal være tekst")
- 
-
-        
-    
-    ####################################################################################################################################################################
-    #Denne del indlæser datafil og omdanner  til matrice
-    ####################################################################################################################################################################
-    def dataLoad(filename):
-      # Loade filen
-        file = open(filename).read()
-          #String split
-        s=file.split()
-        s = np.asfarray(s,float)
-          #len af filen, dividere med tre, for antallet af rækker
-        l = int(len(s)/3)
-        #Foerste række
-        k=np.array([s[0],s[1],s[2]])
    
-        # s=s.astype(np.float)
-
-        #Loop for at stacke matricen
-        for i in range (1,l):
-        #BacName datafejls håndtering
-            if s[i*3+2] >= 1 and s[i*3+2] <= 4:
-                if s[i*3] >= 10 and s[i*3] <= 60:
-                    if s[i*3+1] > 0:
-                        v = np.array([s[i*3],s[i*3+1],s[i*3+2]])
-                        k = np.vstack ((k,v))
-                    else:
-                        print("Datafejl i kolonne 2, række " + str(i+1))
-                else:
-                    print("Datafejl i kolonne 1, række " + str(i+1))
-            else:
-                print("Datafejl i kolonne 3, række " + str(i+1))
-        print("Rækker med datafejl er frasorteret")
-        time.sleep(2)
-        data = k
-        
-        return data
+    #######################################################################################################################################################################
+    #Dette er brugergrænsefladen for indlæs data
 
     if Command == "Indlæs data":        
         while True:
@@ -118,37 +153,12 @@ while status == 1: #programmet vil altid vende tilbage til hovedmenuen, ved mind
         print("""
             
             
-              """)
+              """)   
 
-    ##################################################################################################################################################################
-    #Denne del returnerer Statistik
-    ##################################################################################################################################################################
-
-
-
-    def dataStatistics(data, statistic):
-    
-        #dataT =data.t #matricen bliver transponeret til en 3xN matrice så temperaturen vil være i øverste række, growth rate vil være i midten og bacterietypen vil være i nederste række.
-
-        #hvad dette stykke kode skal udregne bliver bestemt via en række if-sætninger
-        if statistic == "Mean Temperature":
-            result = np.mean(data[:,0])    #mean temperature bliver beregnet ved at finde gennemsnittet af elementerne i øverste række
-        elif statistic == "Mean Growth rate":
-            result = np.mean(data[:,1])    #mean growth rate bliver beregnet ved at finde gennemsnittet af elementerne i midterste række
-        elif statistic == "Rows":
-            result = np.size(data[:,0])    #antallet af rows i data bliver beregnet som længden af den øverste række
-        elif statistic == "Std Temperature":
-            result = np.std(data[:,0])     #std temperature er std deviation af temperaturmålingerne og det bliver udregnet via np.std af den øverste række af dataT
-        elif statistic == "Std Growth rate":
-            result = np.std(data[:,1])     #std growth rate er std deviation af temperaturmålingerne og det bliver udregnet via np.std af den øverste række af dataT
-        elif statistic == "Mean Cold Growth rate":
-            v = data[:,1][data[:,0] < 20] #der bliver skabt en vektor med alle de værdier for growth rate som har samme plads som       
-            result = np.mean(v)
-        elif statistic == "Mean Hot Growth rate":
-            v = data[:,1][data[:,0] > 20]                
-            result = np.mean(v)    
-        return result
-
+        
+    #######################################################################################################################################################################
+    #Dette er brugergrænsefladen for indlæs data
+        
     if Command == "Vis statistik":
         print("""Du har nu følgende valgmuligheder:     #undermenu viser brugeren hvilke former for statistik programmet kan fremstille
         - Mean Temperature
@@ -176,7 +186,9 @@ while status == 1: #programmet vil altid vende tilbage til hovedmenuen, ved mind
         print("""
             
             
-              """)
+              """)    
+    
+        
     ####################################################################################################################################################################
     #Programmet afsluttes
     ######################################################################################################################################################################
