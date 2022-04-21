@@ -84,7 +84,26 @@ def dataStatistics(data, statistic):
         result = np.mean(v)    
     return result
   
-   
+ ##################################################################################################################################################################
+#denne del filtrerer data
+
+def dataFilter(filtertype, betingelse):
+    if filtertype == bacteria:
+        l = np.size(data[:,0]) #l er antallet af rækker i datamatricen
+        V = np.zeros(3) #der bliver oprettet en vector med 3 0'er
+        for i in range(l):
+            if data[i,2] == betingelse:
+                V = np.vstack ((V,data[i,:])) # de rækker i datamatricen som opfylder betingelsen bliver tilføjet til V
+        
+        V = np.delete(V,0,0) #den første linje i matrixcen V som blot er 0'er bliver slettet igen, så matricen udelukkende indeholder data
+        data = V
+    elif filtertype == growthrate:
+        for i in range(l):
+            if data[i,1] >= betingelse[0] and data[i,1] <= betingelse[1]: #her er betingelsen i form af en vektor bestående af øvre og nedre grænse i intervallet
+                V = np.vstack ((V,data[i,:]))
+        V = np.delete(V,0,0)
+        data = V
+        
 
 
 
