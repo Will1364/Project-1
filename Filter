@@ -28,7 +28,7 @@
         while True:
             try:
                 filtertype=str(input("Indtast venligst dit valg2:"))
-                if filtertype != "Bacteria" and filtertype != "Growthrate":
+                if filtertype != "Bacteria" and filtertype != "Growthrate" and filtertype != "No Filter" and filtertype != "Tilbage":
                     raise wrongString
                 break
                 
@@ -46,14 +46,14 @@
                        #""")
         if filtertype=="Bacteria":
             print("""Du har fire bakterier at vælge imellem:
-                  - 1Salmonella
-                  - 2Bascillus
-                  - 3Listeria
-                  - 4Brochothrix
+                  - 1 Salmonella
+                  - 2 Bascillus
+                  - 3 Listeria
+                  - 4 Brochothrix
                   """)
             while True:
                 try:
-                    betingelse=int(input("Indtast venligst dit valg"))
+                    betingelse=int(input("Indtast venligst et tal mellem 1 og 4"))
                     if betingelse > 4 or betingelse < 1:
                         raise inputOutofBounds
                     break
@@ -63,4 +63,7 @@
                     print("Dette input er ikke gyldigt. Input skal være mellem 1 og 4")
             
             data = dataFilter(filtertype, betingelse, data)
-            print(data)
+            
+        if filtertype == "No Filter":
+            data = dataBackup
+            
