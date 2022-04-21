@@ -13,6 +13,8 @@ Created on Thu Mar 24 08:47:58 2022
 import time
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+
 
 dataRead = 0  #denne variabel holder styr på om programmet har noget data at arbejde med
 class missingData(Exception): #Error type defineret for tilfælde hvor brugeren vil behandle data før han/hun har givet det til programmet
@@ -322,9 +324,9 @@ while status == 1: #programmet vil altid vende tilbage til hovedmenuen, ved mind
                 print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
             except ValueError:
                 print("Dette input er ikke gyldigt. Input skal være tekst")
-        if  plotType == "Number of bacteria"
+        if  plotType == "Number of bacteria":
             print(dataPlot(data))
-        elif plotType == "Growth rate by temperature"
+        elif plotType == "Growth rate by temperature":
             print(dataPlot2(data))
             time.sleep(3)
         print("""
