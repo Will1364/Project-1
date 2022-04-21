@@ -1,52 +1,66 @@
-def dataFilter(filtertype, betingelse):
-    if filtertype == bacteria:
-        l = np.size(data[:,0])
-        V = np.zeros(3)
-        for i in range(l):
-            if data[i,2] == betingelse:
-                V = np.vstack ((V,data[i,:]))
-        V = np.delete(V,0,0)
-        data = V
+ def dataFilter(filtertype, betingelse, data): 
+        print(45)
+        if filtertype == "Bacteria":
+            l = np.size(data[:,0])
+            V = np.zeros(3)
+            for i in range(l):
+                if data[i,2] == betingelse:
+                    V = np.vstack ((V,data[i,:]))
+            V = np.delete(V,0,0)
+            data = V
               
-    if filtertype = growth rate:
-        for i in range(l):
-            if data[i,1] => betingelse[0] and data[i,1] =< betingelse[1]:
-                V = np.vstack ((V,data[i,:]))
-        V = np.delete(V,0,0)
-        data = V
-  
-  If Command == “Filtrer data”:
-	print(““Du har nu følgende to filtre at vælge imellem:
-	- Bacteria
-	- Growth rate
-	- Afslut ””)
-	
-	while True:
-		try:
-		betingelse = str(input(“Indtast venligst dit valg : ” ) )
-		if betingelse != “Bacteria” and betingelse !=“Growth rate”
-			raise wrongString
-		break
+        if filtertype == "growthrate":
+            for i in range(l):
+                if data[i,1] >= betingelse[0] and data[i,1] <= betingelse[1]:
+                    V = np.vstack ((V,data[i,:]))
+                V = np.delete(V,0,0)
+                data = V
+        return data
 
-		 	except wrongString:
-               	 		print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen.")
-          	 	except ValueError:
-                			print("Dette input er ikke gyldigt. Input skal være tekst")
-        		 if betingelse != "Tilbage":
-            		print(dataStatistics(data, statistic))
-            		time.sleep(3)
-        		print("""
+
+
+    if Command=="Filtrer data":
+        print("""Du har nu følgende to filtre at vælge imellem:
+              - Bacteria
+              - Growthrate
+              - Afslut""")
+        
+        while True:
+            try:
+                filtertype=str(input("Indtast venligst dit valg2:"))
+                if filtertype != "Bacteria" and filtertype != "Growthrate":
+                    raise wrongString
+                break
+                
+            except wrongString:
+                print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen")
+            except ValueError:
+                print("Dette input er ikke gyldigt. Input skal være tekst")
+                        
+        #if betingelse != "Tilbage":
+               # print(dataStatistics(data, statistic))
+                #time.sleep(3)
+                #print("""
+                     
+                     
+                       #""")
+        if filtertype=="Bacteria":
+            print("""Du har fire bakterier at vælge imellem:
+                  - 1Salmonella
+                  - 2Bascillus
+                  - 3Listeria
+                  - 4Brochothrix
+                  """)
+            while True:
+                try:
+                    betingelse=int(input("Indtast venligst dit valg"))
+                    if betingelse > 4 or betingelse < 1:
+                        raise inputOutofBounds
+                    break
+                except ValueError:
+                    print("Dette input er ikke gyldigt. Input skal være tal")
+                except inputOutofBounds:
+                    print("Dette input er ikke gyldigt. Input skal være mellem 1 og 4")
             
-            
-             		 """)
-	if betingelse !=“Bacteria”
-		print(“”Du har nu følgende 4 bakterier at vælge i mellem:
-		- 1 Salmonella
-		- 2 Bacillus
-		- 3 Listeria
-		- 4 Brochotrix
-		- Afslut “”)
-
-
-      
-  
+            data = dataFilter(filtertype, betingelse, data)
+            print(data)
