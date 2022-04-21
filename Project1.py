@@ -21,6 +21,8 @@ class missingData(Exception): #Error type defineret for tilfælde hvor brugeren 
     pass
 class wrongString(Exception): #Error type defineret for tilfælde hvor brugeren skriver et input forkert
     pass
+class inputOutofBounds(Exception):
+    pass
 status = 1
            
 ####################################################################################################################################################################
@@ -54,7 +56,7 @@ def dataLoad(filename):
     print("Rækker med datafejl er frasorteret")
     time.sleep(2)
     data = k
-    dataBackup = data   #en backup af den indlæste data gemmes i programmet, så man altid kan vende tilbage selv efter man har filtreret data
+    
     
     return data
 
@@ -265,6 +267,7 @@ while status == 1: #programmet vil altid vende tilbage til hovedmenuen, ved mind
         print("Datafilen indlæses")
         time.sleep(1)
         data = dataLoad(filename)
+        dataBackup = data   #en backup af den indlæste data gemmes i programmet, så man altid kan vende tilbage selv efter man har filtreret data
         dataRead = 1 #programmet husker at den nu har loaded data
         print("Filen er nu indlæst")
         time.sleep(3)
