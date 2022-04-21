@@ -1,18 +1,16 @@
-
-
-
 def dataFilter(filtertype, betingelse):
     if filtertype == bacteria:
         l = np.size(data[:,0])
-        V = np.zeros(
+        V = np.zeros(3)
         for i in range(l):
-            if data[i,2] != bacteria:
-                
+            if data[i,2] == bacteria:
+                V = np.vstack ((V,data[i,2]))
+        V = np.delete(V,0,0)
+        data = V
               
       
   
     if filtertype = growth rate:
-  
   
       
   
