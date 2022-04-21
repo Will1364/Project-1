@@ -1,4 +1,7 @@
 
 
 
-def dataFilter(filtertype, betingelse)
+def dataFilter(filtertype, betingelse):
+  if filtertype = bacteria:
+      
+  
