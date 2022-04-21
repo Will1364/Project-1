@@ -85,24 +85,24 @@ def dataStatistics(data, statistic):
   
  ##################################################################################################################################################################
 #denne del filtrerer data
+ def dataFilter(filtertype, betingelse, data): 
+        l = np.size(data[:,0])
+        V = np.zeros(3)
+        if filtertype == "Bacteria":
+            for i in range(l):
+                if data[i,2] == betingelse:
+                    V = np.vstack ((V,data[i,:]))
+            V = np.delete(V,0,0)
+            data = V
+              
+        if filtertype == "Growthrate":
+            for i in range(l):
+                if data[i,1] >= betingelse[0] and data[i,1] <= betingelse[1]:
+                    V = np.vstack ((V,data[i,:]))
+                V = np.delete(V,0,0)
+                data = V
+        return data
 
-def dataFilter(filtertype, betingelse):
-    if filtertype == bacteria:
-        l = np.size(data[:,0]) #l er antallet af rækker i datamatricen
-        V = np.zeros(3) #der bliver oprettet en vector med 3 0'er
-        for i in range(l):
-            if data[i,2] == betingelse:
-                V = np.vstack ((V,data[i,:])) # de rækker i datamatricen som opfylder betingelsen bliver tilføjet til V
-        
-        V = np.delete(V,0,0) #den første linje i matrixcen V som blot er 0'er bliver slettet igen, så matricen udelukkende indeholder data
-        data = V
-    elif filtertype == growthrate:
-        for i in range(l):
-            if data[i,1] >= betingelse[0] and data[i,1] <= betingelse[1]: #her er betingelsen i form af en vektor bestående af øvre og nedre grænse i intervallet
-                V = np.vstack ((V,data[i,:]))
-        V = np.delete(V,0,0)
-        data = V
-        
 
 ####################################################################################################################################################################
 #denne del laver plots
@@ -308,7 +308,8 @@ while status == 1: #programmet vil altid vende tilbage til hovedmenuen, ved mind
             
             
               """)    
-    
+#################################################################################################################################################################
+#dette er brugergrænseflade for generer diagrammer
     
     if Command == "Generer diagrammer":
         print("""Du kan nu vælge følgende grafer:     #undermenu viser brugeren hvilke former for statistik programmet kan fremstille
@@ -337,7 +338,79 @@ while status == 1: #programmet vil altid vende tilbage til hovedmenuen, ved mind
             
               """)    
     
-    
+    ###########################################################################################################################################################################
+    #dette er brugergrænseflade for flitrer data
+    if Command=="Filtrer data":
+        print("""Du har nu følgende to filtre at vælge imellem:
+              - Bacteria
+              - Growthrate
+              - Afslut""")
+        
+        while True:
+            try:
+                filtertype=str(input("Indtast venligst dit valg2:"))
+                if filtertype != "Bacteria" and filtertype != "Growthrate" and filtertype != "No Filter" and filtertype != "Tilbage":
+                    raise wrongString
+                break
+                
+            except wrongString:
+                print("Dette input er ikke gyldigt. Tjek evt. for stavefejl og prøv igen")
+            except ValueError:
+                print("Dette input er ikke gyldigt. Input skal være tekst")
+                        
+       
+        if filtertype=="Bacteria":
+            print("""Du har fire bakterier at vælge imellem:
+                  - 1 Salmonella
+                  - 2 Bascillus
+                  - 3 Listeria
+                  - 4 Brochothrix
+                  """)
+            while True:
+                try:
+                    betingelse=int(input("Indtast venligst et tal mellem 1 og 4"))
+                    if betingelse > 4 or betingelse < 1:
+                        raise inputOutofBounds
+                    break
+                except ValueError:
+                    print("Dette input er ikke gyldigt. Input skal være tal")
+                except inputOutofBounds:
+                    print("Dette input er ikke gyldigt. Input skal være mellem 1 og 4")
+            
+            data = dataFilter(filtertype, betingelse, data)
+            
+        if filtertype == "No Filter":
+            data = dataBackup
+            
+        if filtertype=="Growthrate":
+            print("""Du skal nu bestemme en nedre grænse for growthrate. Vær OBS. på at dette kun kan være et positivt tal""")
+            while True:
+                try:
+                    Nedre=float(input("Indtast venligst din nedre grænse"))
+                    if Nedre < 0:
+                        raise inputOutofBounds
+                    break
+                except ValueError:
+                    print("Dette input er ikke gyldigt. Input skal være et positivt tal")
+                except inputOutofBounds:
+                    print("Input skal være et positivt tal")
+                        
+            while True:
+                try:
+                    Upper=float(input("Indtast venligst din øvre grænse"))
+                    if Upper <0 or Upper<Nedre:
+                        raise inputOutofBounds
+                    break
+                except ValueError:
+                    print("Dette input er ikke gyldigt. Input skal være et tal og ikke bogstaver")
+                
+                except inputOutofBounds:
+                    print("Dette input er ikke gyldigt. Input skal være større end den nedre grænse")
+                 
+            betingelse=np.array([Nedre,Upper])      
+            print(betingelse)
+            data = dataFilter(filtertype, betingelse, data)
+            print(data)
     
         
     ####################################################################################################################################################################
