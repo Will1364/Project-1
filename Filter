@@ -67,3 +67,33 @@
         if filtertype == "No Filter":
             data = dataBackup
             
+        if filtertype=="Growthrate":
+            print("""Du skal nu bestemme en nedre grænse for growthrate. Vær OBS. på at dette kun kan være et positivt tal""")
+            while True:
+                try:
+                    Nedre=float(input("Indtast venligst din nedre grænse"))
+                    if Nedre < 0:
+                        raise inputOutofBounds
+                    break
+                except ValueError:
+                    print("Dette input er ikke gyldigt. Input skal være et positivt tal")
+                except inputOutofBounds:
+                    print("Input skal være et positivt tal")
+                        
+            while True:
+                try:
+                    Upper=float(input("Indtast venligst din øvre grænse"))
+                    if Upper <0 or Upper<Nedre:
+                        raise inputOutofBounds
+                    break
+                except ValueError:
+                    print("Dette input er ikke gyldigt. Input skal være et tal og ikke bogstaver")
+                
+                except inputOutofBounds:
+                    print("Dette input er ikke gyldigt. Input skal være større end den nedre grænse")
+                 
+            betingelse=np.array([Nedre,Upper])      
+            print(betingelse)
+            data = dataFilter(filtertype, betingelse, data)
+            print(data)
+                                   
